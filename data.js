@@ -1,23 +1,6 @@
 // =========================
 // 題目資料
 // =========================
-
-const times = [
-    {
-        chinese: "今天",
-        answers: ["今日", "きょう"]
-    },
-    {
-        chinese: "昨天",
-        answers: ["昨日", "きのう"]
-    },
-    {
-        chinese: "明天",
-        answers: ["明日", "あした"]
-    }
-];
-
-
 const tools = [
     {
         id: "chopsticks",
