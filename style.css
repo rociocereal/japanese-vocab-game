@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.question-card {
+    width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.japanese-word {
+    font-size: 48px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* =========================
+   手機版
+   ========================= */
+
+@media (max-width: 600px) {
+
+    body {
+        margin: 0;
+        padding: 15px;
+    }
+
+    .question-card {
+        width: 85%;
+        max-width: 350px;
+
+        margin: 20px auto;
+        padding: 20px;
+
+        box-sizing: border-box;
+    }
+
+    #answer-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+}
