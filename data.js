@@ -39,6 +39,6 @@ const actions = [
     {
         chinese: "寫信",
         answers: ["手紙を書きます", "てがみをかきます"],
-        allowedTools: ["pencil"]
+        allowedTools: ["pencil", "computer"]
     }
 ];
