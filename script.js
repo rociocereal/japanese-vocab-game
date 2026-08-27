@@ -86,6 +86,14 @@ function showQuestion() {
     answerInput.focus();
 }
 
+function changeTense(sentence, tense) {
+
+    if (tense === "past") {
+        return sentence.replace(/ます$/, "ました");
+    }
+
+    return sentence;
+}
 
 // =========================
 // 建立所有可能的正確答案
@@ -95,43 +103,33 @@ function createCorrectAnswers() {
 
     const correctAnswers = [];
 
-
-    // 每一種「時間」寫法
     currentTime.answers.forEach(function(time) {
 
-
-        // 每一種「工具」寫法
         currentTool.answers.forEach(function(tool) {
 
-
-            // 每一種「動作」寫法
             currentAction.answers.forEach(function(action) {
 
+                // 根據目前時間決定動詞時態
+                const actionWithTense =
+                    changeTense(action, currentTime.tense);
 
-                // 沒有句號的版本
-                const sentenceWithoutPeriod =
+
+                // 組成完整句子
+                const sentence =
                     time +
                     tool +
                     "で" +
-                    action;
+                    actionWithTense +
+                    "。";
 
-
-                // 有日文句號的版本
-                const sentenceWithPeriod =
-                    sentenceWithoutPeriod + "。";
-
-
-                // 兩種都加入正確答案
-                correctAnswers.push(sentenceWithoutPeriod);
-
-                correctAnswers.push(sentenceWithPeriod);
+                // 加入正確答案
+                correctAnswers.push(sentence);
 
             });
 
         });
 
     });
-
 
     return correctAnswers;
 }
