@@ -1,3 +1,36 @@
+const HowMuchTime = [
+    ...minutes,
+    ...hours,
+    ...days,
+    ...weeks,
+    ...months,
+    ...years
+] 
+
+let currentWord;
+
+// =========================
+// 第一課：隨機單字出題
+// =========================
+
+function showVocabQuestion() {
+
+    // 從第一課單字庫隨機抽一個
+    currentWord = getRandomItem(lesson1Words);
+
+    // 顯示中文題目
+    document.getElementById("word-question").textContent =
+        currentWord.chinese;
+
+    // 清空輸入框
+    answerInput.value = "";
+
+    // 清空上一題結果
+    result.textContent = "";
+
+    // 游標回到輸入框
+    answerInput.focus();
+}
 // =========================
 // 從陣列中隨機抽一個
 // =========================

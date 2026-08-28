@@ -15,23 +15,156 @@
     <h1>日文單字冒險</h1>
 
     <div class="question-card">
-        <p class="question-title">組成句子</p>
 
-        <p id="time-question"></p>
-        <p id="tool-question"></p>
-        <p id="action-question"></p>
 
-        <input id="answer-input" type="text" placeholder="請輸入答案">
+        <!-- =========================
+             第一層：單元選擇
+             ========================= -->
 
-        <button id="submit-button">送出答案</button>
+        <div id="lesson-menu">
 
-        <p id="result"></p>
+            <p class="question-title">
+                請選擇單元
+            </p>
 
-        <button id="next-button">下一題</button>
+            <button class="lesson-button" data-lesson="1">
+                單元一
+            </button>
+
+            <button class="lesson-button" data-lesson="2">
+                單元二
+            </button>
+
+            <button class="lesson-button" data-lesson="3">
+                單元三
+            </button>
+
+            <button class="lesson-button" data-lesson="4">
+                單元四
+            </button>
+
+            <button class="lesson-button" data-lesson="5">
+                單元五
+            </button>
+
+            <button class="lesson-button" data-lesson="6">
+                單元六
+            </button>
+
+            <button class="lesson-button" data-lesson="7">
+                單元七
+            </button>
+
+            <button class="lesson-button" data-lesson="8">
+                單元八
+            </button>
+
+            <button class="lesson-button" data-lesson="9">
+                單元九
+            </button>
+
+            <button class="lesson-button" data-lesson="10">
+                單元十
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             第二層：題型選擇
+             ========================= -->
+
+        <div id="mode-menu" class="hidden">
+
+            <div class="game-header">
+
+                <button id="lesson-back-button">
+                    返回
+                </button>
+
+            </div>
+
+
+            <p id="lesson-title" class="question-title"></p>
+
+
+            <button id="vocab-mode-button">
+                單字練習
+            </button>
+
+
+            <button id="sentence-mode-button">
+                句型練習
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             第三層：遊戲畫面
+             ========================= -->
+
+        <div id="game-area" class="hidden">
+
+            <div class="game-header">
+
+                <button id="back-button">
+                    返回
+                </button>
+
+            </div>
+
+
+            <!-- 題目標題 -->
+            <p id="question-title" class="question-title"></p>
+
+
+            <!-- 單字題 -->
+            <h2 id="word-question"></h2>
+
+
+            <!-- 句型題 -->
+            <p id="time-question"></p>
+
+            <p id="tool-question"></p>
+
+            <p id="action-question"></p>
+
+
+            <!-- 輸入答案 -->
+            <input
+                id="answer-input"
+                type="text"
+                placeholder="請輸入答案"
+            >
+
+
+            <button id="submit-button">
+                送出答案
+            </button>
+
+
+            <p id="result"></p>
+
+
+            <button id="next-button">
+                下一題
+            </button>
+
+        </div>
+
     </div>
 
+
+    <!-- 題庫 -->
+    <script src="HowMuchTime.js"></script>
+
     <script src="times.js"></script>
+
     <script src="data.js"></script>
+
+
+    <!-- 主程式 -->
     <script src="script.js"></script>
 
 </body>
