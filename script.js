@@ -1,3 +1,7 @@
+// =========================
+// 「多少時間」單字題庫
+// =========================
+
 const HowMuchTime = [
     ...minutes,
     ...hours,
@@ -5,32 +9,19 @@ const HowMuchTime = [
     ...weeks,
     ...months,
     ...years
-] 
+];
 
-let currentWord;
 
 // =========================
-// 第一課：隨機單字出題
+// 目前的遊戲模式
+// vocab = 單字練習
+// sentence = 句型練習
 // =========================
 
-function showVocabQuestion() {
+let currentMode = "vocab";
 
-    // 從第一課單字庫隨機抽一個
-    currentWord = getRandomItem(lesson1Words);
+let currentLesson = null;
 
-    // 顯示中文題目
-    document.getElementById("word-question").textContent =
-        currentWord.chinese;
-
-    // 清空輸入框
-    answerInput.value = "";
-
-    // 清空上一題結果
-    result.textContent = "";
-
-    // 游標回到輸入框
-    answerInput.focus();
-}
 // =========================
 // 從陣列中隨機抽一個
 // =========================
@@ -60,43 +51,171 @@ const nextButton =
 const result =
     document.getElementById("result");
 
+const vocabModeButton =
+    document.getElementById("vocab-mode-button");
+
+const sentenceModeButton =
+    document.getElementById("sentence-mode-button");
+
+const gameArea =
+    document.getElementById("game-area");
+
+const modeMenu =
+    document.getElementById("mode-menu");
+
+const backButton =
+    document.getElementById("back-button");
+
+const lessonMenu =
+    document.getElementById("lesson-menu");
+
+const lessonButtons =
+    document.querySelectorAll(".lesson-button");
+
+const lessonBackButton =
+    document.getElementById("lesson-back-button");
+
+const lessonTitle =
+    document.getElementById("lesson-title");
 
 // =========================
-// 儲存目前這一題的資料
+// 選擇單元
 // =========================
 
+lessonButtons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        // 取得玩家選擇的單元
+        currentLesson =
+            Number(button.dataset.lesson);
+
+
+        // 隱藏單元選單
+        lessonMenu.classList.add("hidden");
+
+
+        // 顯示題型選單
+        modeMenu.classList.remove("hidden");
+
+
+        // 顯示目前選擇的單元
+        lessonTitle.textContent =
+            "單元 " + currentLesson;
+
+    });
+
+});
+
+// =========================
+// 從題型選擇返回單元選擇
+// =========================
+
+lessonBackButton.addEventListener(
+    "click",
+    function() {
+
+        // 隱藏題型選單
+        modeMenu.classList.add("hidden");
+
+
+        // 顯示單元選單
+        lessonMenu.classList.remove("hidden");
+
+
+        // 清除目前選擇的單元
+        currentLesson = null;
+
+    }
+);
+
+// =========================
+// 儲存目前題目
+// =========================
+
+// 單字題
+let currentWord;
+
+// 句型題
 let currentTime;
 let currentTool;
 let currentAction;
 
 
 // =========================
-// 顯示新題目
+// 單字模式：顯示新題目
 // =========================
 
-function showQuestion() {
+function showVocabQuestion() {
+
+    document.getElementById("question-title").textContent =
+    "請輸入這個單字的日文";
+
+    // 從 HowMuchTime 隨機抽一個單字
+    currentWord =
+        getRandomItem(HowMuchTime);
+
+
+    // 顯示單字題
+    document.getElementById("word-question").textContent =
+        currentWord.chinese;
+
+
+    // 隱藏句型題目的內容
+    document.getElementById("time-question").textContent = "";
+    document.getElementById("tool-question").textContent = "";
+    document.getElementById("action-question").textContent = "";
+
+
+    // 清空答案
+    answerInput.value = "";
+
+    result.textContent = "";
+
+    answerInput.focus();
+}
+
+
+// =========================
+// 句型模式：顯示新題目
+// =========================
+
+function showSentenceQuestion() {
+
+    document.getElementById("question-title").textContent =
+    "請根據條件組成日文句子";
+
+    // 清除單字題
+    document.getElementById("word-question").textContent = "";
+
 
     // 隨機抽時間
-    currentTime = getRandomItem(times);
+    currentTime =
+        getRandomItem(times);
 
 
     // 隨機抽動作
-    currentAction = getRandomItem(actions);
+    currentAction =
+        getRandomItem(actions);
 
 
     // 找出這個動作可以使用的工具
-    const possibleTools = tools.filter(function(tool) {
+    const possibleTools =
+        tools.filter(function(tool) {
 
-        return currentAction.allowedTools.includes(tool.id);
+            return currentAction.allowedTools.includes(
+                tool.id
+            );
 
-    });
-
-
-    // 從可以使用的工具中隨機抽一個
-    currentTool = getRandomItem(possibleTools);
+        });
 
 
-    // 顯示中文題目
+    // 隨機抽工具
+    currentTool =
+        getRandomItem(possibleTools);
+
+
+    // 顯示題目
     document.getElementById("time-question").textContent =
         "時間：" + currentTime.chinese;
 
@@ -107,34 +226,60 @@ function showQuestion() {
         "動作：" + currentAction.chinese;
 
 
-    // 清空上一題輸入的答案
+    // 清空答案
     answerInput.value = "";
 
-
-    // 清空上一題結果
     result.textContent = "";
 
-
-    // 自動把游標放回輸入框
     answerInput.focus();
 }
+
+
+// =========================
+// 根據模式顯示題目
+// =========================
+
+function showQuestion() {
+
+    if (currentMode === "vocab") {
+
+        showVocabQuestion();
+
+    } else if (currentMode === "sentence") {
+
+        showSentenceQuestion();
+
+    }
+}
+
+
+// =========================
+// 改變動詞時態
+// =========================
 
 function changeTense(sentence, tense) {
 
     if (tense === "past") {
-        return sentence.replace(/ます$/, "ました");
+
+        return sentence.replace(
+            /ます$/,
+            "ました"
+        );
+
     }
 
     return sentence;
 }
 
+
 // =========================
-// 建立所有可能的正確答案
+// 建立句型題的正確答案
 // =========================
 
-function createCorrectAnswers() {
+function createSentenceAnswers() {
 
     const correctAnswers = [];
+
 
     currentTime.answers.forEach(function(time) {
 
@@ -142,12 +287,13 @@ function createCorrectAnswers() {
 
             currentAction.answers.forEach(function(action) {
 
-                // 根據目前時間決定動詞時態
                 const actionWithTense =
-                    changeTense(action, currentTime.tense);
+                    changeTense(
+                        action,
+                        currentTime.tense
+                    );
 
 
-                // 組成完整句子
                 const sentence =
                     time +
                     tool +
@@ -155,7 +301,7 @@ function createCorrectAnswers() {
                     actionWithTense +
                     "。";
 
-                // 加入正確答案
+
                 correctAnswers.push(sentence);
 
             });
@@ -164,28 +310,50 @@ function createCorrectAnswers() {
 
     });
 
+
     return correctAnswers;
 }
 
 
 // =========================
-// 檢查玩家答案
+// 檢查單字題
 // =========================
 
-function checkAnswer() {
+function checkVocabAnswer() {
 
-    // 取得玩家輸入的答案
-    // trim() 會移除前後多餘的空格
     const userAnswer =
         answerInput.value.trim();
 
 
-    // 產生所有可能的正確答案
+    if (currentWord.answers.includes(userAnswer)) {
+
+        result.textContent =
+            "答對了！🎉";
+
+    } else {
+
+        result.textContent =
+            "答錯了！正確答案是：" +
+            currentWord.answers.join(" / ");
+
+    }
+}
+
+
+// =========================
+// 檢查句型題
+// =========================
+
+function checkSentenceAnswer() {
+
+    const userAnswer =
+        answerInput.value.trim();
+
+
     const correctAnswers =
-        createCorrectAnswers();
+        createSentenceAnswers();
 
 
-    // 檢查玩家答案是否存在於正確答案中
     if (correctAnswers.includes(userAnswer)) {
 
         result.textContent =
@@ -193,18 +361,88 @@ function checkAnswer() {
 
     } else {
 
-        // 顯示第一種標準答案
-        // 並加上日文句號
         result.textContent =
             "答錯了！正確答案是：" +
-            correctAnswers[1];
+            correctAnswers[0];
 
     }
 }
 
 
 // =========================
-// 按「送出答案」
+// 根據目前模式檢查答案
+// =========================
+
+function checkAnswer() {
+
+    if (currentMode === "vocab") {
+
+        checkVocabAnswer();
+
+    } else if (currentMode === "sentence") {
+
+        checkSentenceAnswer();
+
+    }
+}
+
+
+// =========================
+// 切換到單字模式
+// =========================
+
+vocabModeButton.addEventListener(
+    "click",
+    function() {
+
+        currentMode = "vocab";
+
+        modeMenu.classList.add("hidden");
+
+        gameArea.classList.remove("hidden");
+
+        showQuestion();
+
+    }
+);
+
+
+// =========================
+// 切換到句型模式
+// =========================
+
+sentenceModeButton.addEventListener(
+    "click",
+    function() {
+
+        currentMode = "sentence";
+
+        modeMenu.classList.add("hidden");
+
+        gameArea.classList.remove("hidden");
+
+        showQuestion();
+
+    }
+);
+
+backButton.addEventListener(
+    "click",
+    function() {
+
+        gameArea.classList.add("hidden");
+
+        modeMenu.classList.remove("hidden");
+
+        answerInput.value = "";
+
+        result.textContent = "";
+
+    }
+);
+
+// =========================
+// 送出答案
 // =========================
 
 submitButton.addEventListener(
@@ -218,7 +456,7 @@ submitButton.addEventListener(
 
 
 // =========================
-// 按 Enter 也可以送出答案
+// Enter 送出答案
 // =========================
 
 answerInput.addEventListener(
@@ -236,7 +474,7 @@ answerInput.addEventListener(
 
 
 // =========================
-// 按「下一題」
+// 下一題
 // =========================
 
 nextButton.addEventListener(
@@ -251,7 +489,6 @@ nextButton.addEventListener(
 
 // =========================
 // 網站剛打開時
+// 不自動出題
+// 等玩家選擇練習模式
 // =========================
-
-// 自動顯示第一題
-showQuestion();
