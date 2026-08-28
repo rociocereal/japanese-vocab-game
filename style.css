@@ -4,25 +4,109 @@ body {
     background-color: #f5f5f5;
 }
 
+
+/* =========================
+   遊戲卡片
+   ========================= */
+
 .question-card {
     width: 400px;
     margin: 50px auto;
     padding: 30px;
+
     background-color: white;
     border-radius: 20px;
 }
+
+
+/* =========================
+   題目文字
+   ========================= */
+
+.question-title {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+#word-question {
+    font-size: 32px;
+    margin: 25px 0;
+}
+
 
 .japanese-word {
     font-size: 48px;
 }
 
+
+/* =========================
+   輸入框
+   ========================= */
+
+#answer-input {
+    font-size: 16px;
+    text-align: left;
+}
+
+
+/* =========================
+   一般按鈕
+   ========================= */
+
 button {
     display: block;
+
     width: 100%;
+
     margin: 10px 0;
     padding: 15px;
+
     font-size: 18px;
+
     cursor: pointer;
+}
+
+
+/* =========================
+   主選單
+   ========================= */
+
+.mode-buttons {
+    width: 100%;
+}
+
+
+/* =========================
+   隱藏元素
+   ========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   返回鍵區域
+   ========================= */
+
+.game-header {
+    display: flex;
+
+    /* 返回鍵放左邊 */
+    justify-content: flex-start;
+
+    margin-bottom: 20px;
+}
+
+
+#back-button,
+#lesson-back-button {
+    width: auto;
+    padding: 8px 16px;
+    margin: 0;
+    font-size: 16px;
 }
 
 /* =========================
@@ -36,6 +120,7 @@ button {
         padding: 15px;
     }
 
+
     .question-card {
         width: 85%;
         max-width: 350px;
@@ -46,14 +131,25 @@ button {
         box-sizing: border-box;
     }
 
+
     #answer-input {
         width: 100%;
+
         box-sizing: border-box;
     }
 
+
     button {
         width: 100%;
+
         box-sizing: border-box;
     }
+
+
+    /* 手機版返回鍵仍然保持小按鈕 */
+    #back-button,
+    #lesson-back-button {
+    width: auto;
+}
 
 }
